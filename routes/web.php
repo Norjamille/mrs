@@ -50,7 +50,7 @@ Route::controller(App\Http\Controllers\Midwife\PatientController::class)
                 Route::post('/store', 'store')->name('midwife.patients.store');
                 Route::get('/{id}/edit', 'edit')->name('midwife.patients.edit');
                 Route::patch('/{id}/update', 'update')->name('midwife.patients.update');
-                Route::delete('/{id}', 'destroy')->name('midwife.patients.destroy');
+                Route::delete('/{id}/delete', 'destroy')->name('midwife.patients.destroy');
             });
 Route::controller(App\Http\Controllers\Midwife\PatientsPregnancyController::class)
             ->prefix('/midwife/patients/pregnancy')

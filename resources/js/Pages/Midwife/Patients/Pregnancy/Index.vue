@@ -1,22 +1,39 @@
 <template>
     <MidwifeLayout title="Pregnancy">
-        <div class="flex items-stretch flex-1 space-x-5 overflow-hidden">
-            <main class="flex-1 overflow-y-auto">
+        <div class="flex  flex-1 space-x-5 ">
+            <main class="flex-1">
                 <div class="mx-auto ">
                     <div class="flex justify-between">
-                        <PrimaryButtonLink>Add</PrimaryButtonLink>
+                        <template v-if="!props.patient.current_pregnant_with">
+                            <PrimaryButtonLink>Add</PrimaryButtonLink>
+                        </template>
                     </div>
-                    <!-- Gallery -->
-                    <div class="pb-16 mt-8">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. A, nulla omnis? Pariatur magnam quo,
-                        nulla saepe adipisci illo quibusdam, quisquam cumque itaque possimus quia ab ipsam facilis hic
-                        suscipit praesentium.
+                    <div class="pb-16 mt-8 grid gap-5">
+                        <div class="flex justify-between items-center">
+                            <h1>
+                                Pregnancy History
+                            </h1>
+                            <SecondaryButton @click="showDetails = !showDetails">
+                                <div class="flex space-x-2">
+                                    <ArrowLeftIcon v-if="!showDetails" class="h-4" />
+                                    <span>{{ detailsToggleText }}</span>
+                                    <ArrowRightIcon v-if="showDetails" class="h-4" />
+                                </div>
+                            </SecondaryButton>
+                        </div>
+                        <Table :headers="['Initial Visit', 'Baby Full Name', 'No. Months (Initial Visit)', 'status']">
+
+                        </Table>
                     </div>
                 </div>
             </main>
 
             <!-- Details sidebar -->
-            <aside class="hidden p-8 overflow-y-auto bg-white border rounded-xl border-rose-200 w-96 lg:block">
+            <aside :class="{
+                'w-96 p-8 border': showDetails,
+                'w-0': !showDetails
+            }"
+                class="hidden  overflow-y-auto bg-white transform duration-150 ease-in-out  rounded-xl border-rose-200  lg:block">
                 <div class="pb-16 space-y-6">
                     <div>
                         <div class="flex items-start justify-between ">
@@ -102,12 +119,6 @@
                             </div>
                         </dl>
                     </div>
-                    <div class="flex">
-                        <button type="button"
-                            class="flex-1 px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Download</button>
-                        <button type="button"
-                            class="flex-1 px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Delete</button>
-                    </div>
                 </div>
             </aside>
         </div>
@@ -118,15 +129,26 @@
 import MidwifeLayout from '@/Layouts/MidwifeLayout.vue';
 import TextInput from '@/Components/TextInput.vue'
 import PrimaryButtonLink from '@/Components/PrimaryButtonLink.vue'
+import SecondaryButton from '@/Components/SecondaryButton.vue'
+
 import Table from '@/Components/Table.vue';
 import Tcell from '@/Components/Tcell.vue';
 import EmptyTable from '@/Components/EmptyTable.vue';
 import Pagination from '@/Components/Pagination.vue';
 import { Link, router } from '@inertiajs/vue3';
 import Confirm from '@/Components/Confirm.vue';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useDateFormat } from '@vueuse/core'
+import {
+    ArrowLeftIcon,
+    ArrowRightIcon
+} from '@heroicons/vue/24/outline'
 
+let showDetails = ref(true);
+
+let detailsToggleText = computed(() => {
+    return showDetails.value == true ? 'Hide Details' : 'Show Details'
+})
 
 let props = defineProps({
     patient: Object

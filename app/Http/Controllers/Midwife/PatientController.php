@@ -68,9 +68,9 @@ class PatientController extends Controller
 
     public function destroy($id)
     {
-       $patient = Patient::findOrFail($id);
-       User::findOrFail($patient->user_id)->delete();
-       $patient->delete();
+        $patient = Patient::findOrFail($id);
+        User::findOrFail($patient->user_id)->delete();
+        $patient->delete();
         return redirect()->back()->with('toast',[
             'type'=>'success',
             'message'=>'Record has been deleted!'

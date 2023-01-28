@@ -210,12 +210,13 @@
                 </main>
             </div>
         </div>
-
+        <ToastList />
     </div>
 </template>
 
 <script setup>
 import { Head, Link } from '@inertiajs/vue3'
+import ToastList from '@/Components/ToastList.vue'
 import { AdjustmentsHorizontalIcon, CalendarDaysIcon, ChartBarSquareIcon, ClipboardDocumentListIcon, HomeIcon } from '@heroicons/vue/24/outline'
 let props = defineProps({
     title: {

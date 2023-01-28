@@ -1,7 +1,7 @@
 <template>
-
     <MidwifeLayout title="Patients">
         <div>
+
             <div class="grid gap-4">
                 <div class="sm:flex sm:items-center">
                     <div class="sm:flex-auto">

@@ -13,7 +13,8 @@ class PatientsPregnancyController extends Controller
     {
         $patient = Patient::findOrFail($id);
         return Inertia::render('Midwife/Patients/Pregnancy/Index',[
-            'patient'=>$patient->load('user')->append(['age']),
-        ]);
+            'patient'=>$patient->load('user')->append(['full_name','age']),
+           
+        ]); 
     }
 }

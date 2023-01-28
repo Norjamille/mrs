@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('contact_number');
             $table->string('date_of_birth');
             $table->boolean('active')->default(true);
+            $table->unsignedBigInteger('current_pregnant_with')->nullable(); //current pregnancy
             $table->timestamps();
         });
     }
