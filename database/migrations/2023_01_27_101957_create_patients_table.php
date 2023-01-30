@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('extension_name')->nullable();
             $table->string('address');
+            $table->unsignedBigInteger('purok_id')->nullable();
             $table->string('email')->nullable();
             $table->string('contact_number');
             $table->string('date_of_birth');

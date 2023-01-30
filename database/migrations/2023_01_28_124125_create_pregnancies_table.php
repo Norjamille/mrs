@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('prenancies', function (Blueprint $table) {
+        Schema::create('pregnancies', function (Blueprint $table) {
             $table->id();
             $table->foreignId('patient_id');
             $table->dateTime('first_check_up_at')->nullable();
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('baby_last_name')->nullable();
             $table->string('baby_birth_date')->nullable();
             $table->string('gender')->nullable();
-            $table->string('birth_procedure')->nullable(); // noral / cesarean 
+            $table->string('birth_procedure')->nullable(); // noral / cesarean
             $table->string('birth_id')->nullable(); // identifying of duplicates (Tween etc)
             $table->timestamps();
         });
@@ -37,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('prenancies');
+        Schema::dropIfExists('pregnancies');
     }
 };

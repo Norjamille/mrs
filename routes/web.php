@@ -52,11 +52,11 @@ Route::controller(App\Http\Controllers\Midwife\PatientController::class)
                 Route::patch('/{id}/update', 'update')->name('midwife.patients.update');
                 Route::delete('/{id}/delete', 'destroy')->name('midwife.patients.destroy');
             });
-Route::controller(App\Http\Controllers\Midwife\PatientsPregnancyController::class)
-            ->prefix('/midwife/patients/pregnancy')
+Route::controller(App\Http\Controllers\Midwife\PatientPregnanciesHistoryController::class)
+            ->prefix('/midwife/patients/pregnancies')
             ->middleware(['auth', 'role:midwife'])
             ->group(function () {
-                Route::get('/{id}', 'index')->name('midwife.patients.pregnancy');
+                Route::get('/{id}/history', 'index')->name('midwife.patients.pregnancies.history');
             });
 
 Route::controller(App\Http\Controllers\Midwife\InfantController::class)

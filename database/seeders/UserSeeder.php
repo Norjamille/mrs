@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Purok;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
@@ -34,5 +35,6 @@ class UserSeeder extends Seeder
         ]);
 
         $user->assignRole('midwife');
+
     }
 }

@@ -1,7 +1,6 @@
 <template>
     <MidwifeLayout title="Patients">
         <div>
-
             <div class="grid gap-4">
                 <div class="sm:flex sm:items-center">
                     <div class="sm:flex-auto">
@@ -11,12 +10,14 @@
                         <PrimaryButtonLink :href="route('midwife.patients.create')">New Patient</PrimaryButtonLink>
                     </div>
                 </div>
-                <Table :headers="['Details', 'Full Name', 'Contact Number', 'Email', 'Age', 'Status', 'Action']">
+                <Table :headers="['Pregnancy', 'Full Name', 'Contact Number', 'Email', 'Age', 'Status', 'Actions']">
                     <template v-for="patient in props.patients.data" :key="patient.id">
                         <tr>
                             <Tcell>
-                                <SecondaryButtonLink :href="route('midwife.patients.pregnancy', { id: patient.id })">
-                                    Pregnancy
+                                <SecondaryButtonLink
+                                    :href="route('midwife.patients.pregnancies.history', { id: patient.id })">
+                                    <ClockIcon class="h-5 mr-2" />
+                                    <span>History</span>
                                 </SecondaryButtonLink>
                             </Tcell>
                             <Tcell> {{ patient.fullName }} </Tcell>
@@ -38,6 +39,9 @@
                                     </Link>
                                     <button @click="showConfirmDeletePatient(patient.id)">
                                         <TrashIcon class="h-5 text-gray-500 hover:text-red-600" />
+                                    </button>
+                                    <button>
+                                        <EyeIcon class="h-5 text-gray-500 hover:text-teal-600" />
                                     </button>
                                 </div>
                             </Tcell>
@@ -66,11 +70,14 @@ import Table from '@/Components/Table.vue';
 import Tcell from '@/Components/Tcell.vue';
 import EmptyTable from '@/Components/EmptyTable.vue';
 import Pagination from '@/Components/Pagination.vue';
-import { PencilIcon, TrashIcon } from '@heroicons/vue/24/solid';
+import { EyeIcon, PencilIcon, TrashIcon } from '@heroicons/vue/24/solid';
 import { Link, router } from '@inertiajs/vue3';
 import Confirm from '@/Components/Confirm.vue';
 import { ref } from 'vue';
 import SecondaryButtonLink from '../../../Components/SecondaryButtonLink.vue';
+import {
+    ClockIcon
+} from '@heroicons/vue/24/outline'
 
 let confirmDeletePatient = ref(false);
 let patienId = ref(null);

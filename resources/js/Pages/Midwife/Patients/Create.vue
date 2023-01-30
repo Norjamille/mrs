@@ -23,6 +23,13 @@
                         <FormInput v-model="form.address" :error="form.errors.address" label="Address" type="text" />
                     </div>
                     <div class="grid sm:col-span-1">
+                        <FormSelect v-model="form.purokId" :error="form.errors.purokId" label="Purok">
+                            <option v-for="purok in puroks" :key="purok.id" :value="purok.id">
+                                {{ purok.name }}
+                            </option>
+                        </FormSelect>
+                    </div>
+                    <div class="grid sm:col-span-1">
                         <FormInput v-model="form.email" :error="form.errors.email" label="Email" type="email" />
                     </div>
                     <div class="grid sm:col-span-1">
@@ -36,7 +43,9 @@
                 </div>
                 <template #footer>
                     <div class="flex space-x-2">
-                        <PrimaryButton :disabled="form.processing">Submit</PrimaryButton>
+                        <PrimaryButton :loading-on="form.processing" :disabled="form.processing">
+                            Submit
+                        </PrimaryButton>
                         <SecondaryButtonLink :href="route('midwife.patients')">Cancel</SecondaryButtonLink>
                     </div>
                 </template>
@@ -53,6 +62,11 @@ import FormInput from '@/Components/FormInput.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButtonLink from '@/Components/SecondaryButtonLink.vue';
 import { useForm } from '@inertiajs/vue3';
+import FormSelect from '../../../Components/FormSelect.vue';
+
+let props = defineProps({
+    puroks: Object
+})
 
 let form = useForm({
     firstName: '',
@@ -60,6 +74,7 @@ let form = useForm({
     lastName: '',
     extensionName: '',
     address: '',
+    purokId: '',
     email: '',
     contactNumber: '',
     dateOfBirth: '',

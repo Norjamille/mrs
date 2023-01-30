@@ -1,5 +1,5 @@
 <template>
-    <div class="grid gap-3 p-3 bg-white border rounded-lg shadow-sm">
+    <div class="grid gap-3 p-8 bg-white border rounded-lg shadow-sm">
         <div>
             <h1 class="text-xl font-bold">
                 {{ props.title }}

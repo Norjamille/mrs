@@ -23,30 +23,31 @@ class PatientRequest extends FormRequest
      */
     public function rules()
     {
-        if ($this->method()=='POST') {
+        if ($this->method() == 'POST') {
             return [
                 'firstName' => 'required',
                 'middleName' => 'nullable',
                 'lastName' => 'required',
                 'extensionName' => 'nullable',
                 'address' => 'required',
+                'purokId'=>'required|exists:puroks,id',
                 'email' => 'required|email|unique:patients,email',
                 'contactNumber' => 'required',
                 'dateOfBirth' => 'required',
             ];
-        }else{
+        } else {
             return [
                 'firstName' => 'required',
                 'middleName' => 'nullable',
                 'lastName' => 'required',
                 'extensionName' => 'nullable',
                 'address' => 'required',
+                'purokId'=>'required|exists:puroks,id',
                 'email' => 'required|email|unique:patients,email,'.$this->route()->parameters['id'],
                 'contactNumber' => 'required',
                 'dateOfBirth' => 'required',
             ];
         }
-        
     }
 
     public function attributes()
@@ -57,6 +58,7 @@ class PatientRequest extends FormRequest
             'lastName' => 'last name',
             'extensionName' => 'extension name',
             'address' => 'address',
+            'purokId' => 'purok',
             'email' => 'email',
             'contactNumber' => 'contact number',
             'dateOfBirth' => 'date of birth',
