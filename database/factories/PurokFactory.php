@@ -17,7 +17,7 @@ class PurokFactory extends Factory
     public function definition()
     {
         return [
-            'name'=>'Test'
+            'name' => 'Test',
         ];
     }
 }

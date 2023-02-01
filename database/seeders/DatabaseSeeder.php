@@ -6,7 +6,6 @@ namespace Database\Seeders;
 
 use App\Models\Purok;
 use Illuminate\Database\Seeder;
-use Database\Seeders\UserSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,27 +21,27 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Purok::create([
-            'name'=>'Purok 1',
+            'name' => 'Purok 1',
         ]);
 
         Purok::create([
-            'name'=>'Purok 2',
+            'name' => 'Purok 2',
         ]);
 
         Purok::create([
-            'name'=>'Purok 3',
+            'name' => 'Purok 3',
         ]);
 
         Purok::create([
-            'name'=>'Purok 4',
+            'name' => 'Purok 4',
         ]);
 
         Purok::create([
-            'name'=>'Purok 5',
+            'name' => 'Purok 5',
         ]);
 
         Purok::create([
-            'name'=>'Purok 6',
+            'name' => 'Purok 6',
         ]);
     }
 }

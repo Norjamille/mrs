@@ -14,11 +14,17 @@
                     <template v-for="patient in props.patients.data" :key="patient.id">
                         <tr>
                             <Tcell>
-                                <SecondaryButtonLink
-                                    :href="route('midwife.patients.pregnancies.history', { id: patient.id })">
-                                    <ClockIcon class="h-5 mr-2" />
-                                    <span>History</span>
-                                </SecondaryButtonLink>
+                                <div class="flex space-x-2">
+                                    <SecondaryButtonLink :href="route('midwife.patients.schedules', { id: patient.id })">
+                                        <CalendarDaysIcon class="h-5 mr-2" />
+                                        <span>Schedules</span>
+                                    </SecondaryButtonLink>
+                                    <SecondaryButtonLink
+                                        :href="route('midwife.patients.pregnancies.history', { id: patient.id })">
+                                        <ClockIcon class="h-5 mr-2" />
+                                        <span>History</span>
+                                    </SecondaryButtonLink>
+                                </div>
                             </Tcell>
                             <Tcell> {{ patient.fullName }} </Tcell>
                             <Tcell>{{ patient.contactNumber }}</Tcell>
@@ -74,10 +80,12 @@ import { EyeIcon, PencilIcon, TrashIcon } from '@heroicons/vue/24/solid';
 import { Link, router } from '@inertiajs/vue3';
 import Confirm from '@/Components/Confirm.vue';
 import { ref } from 'vue';
-import SecondaryButtonLink from '../../../Components/SecondaryButtonLink.vue';
+import SecondaryButtonLink from '@/Components/SecondaryButtonLink.vue';
 import {
-    ClockIcon
+    ClockIcon,
+    CalendarDaysIcon
 } from '@heroicons/vue/24/outline'
+
 
 let confirmDeletePatient = ref(false);
 let patienId = ref(null);
@@ -100,6 +108,7 @@ const confirmDelete = () => {
     router.delete(route('midwife.patients.destroy', { id: patienId.value }))
     resetDeleteData();
 }
+
 
 
 let props = defineProps({

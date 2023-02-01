@@ -16,23 +16,23 @@ class PatientController extends Controller
     {
         return Inertia::render('Midwife/Patients/Index', [
             'patients' => Patient::query()
-                        ->paginate(10)
-                        ->withQueryString()
-                        ->through(fn ($patient) => [
-                            'id' => $patient->id,
-                            'fullName' => $patient->full_name,
-                            'contactNumber' => $patient->contact_number,
-                            'email' => $patient->email,
-                            'age' => $patient->age,
-                            'status' => $patient->active ? 'Active' : 'Inactive',
-                        ]),
+                ->paginate(10)
+                ->withQueryString()
+                ->through(fn ($patient) => [
+                    'id' => $patient->id,
+                    'fullName' => $patient->full_name,
+                    'contactNumber' => $patient->contact_number,
+                    'email' => $patient->email,
+                    'age' => $patient->age,
+                    'status' => $patient->active ? 'Active' : 'Inactive',
+                ]),
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('Midwife/Patients/Create',[
-            'puroks'=>Purok::select('id','name')->get(),
+        return Inertia::render('Midwife/Patients/Create', [
+            'puroks' => Purok::select('id', 'name')->get(),
         ]);
     }
 
@@ -54,6 +54,7 @@ class PatientController extends Controller
 
         return Inertia::render('Midwife/Patients/Edit', [
             'patient' => $patient,
+            'puroks' => Purok::select('id', 'name')->get(),
         ]);
     }
 

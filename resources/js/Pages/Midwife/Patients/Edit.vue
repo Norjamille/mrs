@@ -23,6 +23,13 @@
                         <FormInput v-model="form.address" :error="form.errors.address" label="Address" type="text" />
                     </div>
                     <div class="grid sm:col-span-1">
+                        <FormSelect v-model="form.purokId" :error="form.errors.purokId" label="Purok">
+                            <option v-for="purok in puroks" :key="purok.id" :value="purok.id">
+                                {{ purok.name }}
+                            </option>
+                        </FormSelect>
+                    </div>
+                    <div class="grid sm:col-span-1">
                         <FormInput v-model="form.email" :error="form.errors.email" label="Email" type="email" />
                     </div>
                     <div class="grid sm:col-span-1">
@@ -50,12 +57,14 @@ import MidwifeLayout from '@/Layouts/MidwifeLayout.vue';
 import TextInput from '@/Components/TextInput.vue'
 import Card from '@/Components/Card.vue';
 import FormInput from '@/Components/FormInput.vue';
+import FormSelect from '@/Components/FormSelect.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButtonLink from '@/Components/SecondaryButtonLink.vue';
 import { useForm } from '@inertiajs/vue3';
 
 let props = defineProps({
     patient: Object,
+    puroks: Object
 })
 
 let form = useForm({
@@ -65,6 +74,7 @@ let form = useForm({
     lastName: props.patient.last_name,
     extensionName: props.patient.extension_name,
     address: props.patient.address,
+    purokId: props.patient.purok_id,
     email: props.patient.email,
     contactNumber: props.patient.contact_number,
     dateOfBirth: props.patient.date_of_birth,

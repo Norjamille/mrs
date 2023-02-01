@@ -30,7 +30,9 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
+        if (auth()->user()->hasRole('midwife')) {
+            return to_route('midwife.dashboard');
+        }
     })->name('dashboard');
 });
 
@@ -57,6 +59,15 @@ Route::controller(App\Http\Controllers\Midwife\PatientPregnanciesHistoryControll
             ->middleware(['auth', 'role:midwife'])
             ->group(function () {
                 Route::get('/{id}/history', 'index')->name('midwife.patients.pregnancies.history');
+                Route::get('/{id}/history/new-pregnancy', 'create')->name('midwife.patients.pregnancies.history.new-pregnancy');
+                Route::post('/patient/new-pregnancy', 'store')->name('midwife.patients.pregnancies.new-pregnancy.store');
+            });
+            
+Route::controller(App\Http\Controllers\Midwife\PatientScheduleController::class)
+            ->prefix('/midwife/patients')
+            ->middleware(['auth', 'role:midwife'])
+            ->group(function () {
+                Route::get('/{id}/schedules', 'index')->name('midwife.patients.schedules');
             });
 
 Route::controller(App\Http\Controllers\Midwife\InfantController::class)
