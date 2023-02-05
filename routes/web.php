@@ -62,12 +62,13 @@ Route::controller(App\Http\Controllers\Midwife\PatientPregnanciesHistoryControll
                 Route::get('/{id}/history/new-pregnancy', 'create')->name('midwife.patients.pregnancies.history.new-pregnancy');
                 Route::post('/patient/new-pregnancy', 'store')->name('midwife.patients.pregnancies.new-pregnancy.store');
             });
-            
+
 Route::controller(App\Http\Controllers\Midwife\PatientScheduleController::class)
             ->prefix('/midwife/patients')
             ->middleware(['auth', 'role:midwife'])
             ->group(function () {
                 Route::get('/{id}/schedules', 'index')->name('midwife.patients.schedules');
+                Route::post('/schedules/store', 'store')->name('midwife.patients.schedules.store');
             });
 
 Route::controller(App\Http\Controllers\Midwife\InfantController::class)

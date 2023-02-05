@@ -21,6 +21,8 @@
     "dependencies": {
         "@formkit/auto-animate": "^1.0.0-beta.6",
         "@heroicons/vue": "^2.0.14",
-        "@vueuse/core": "^9.11.1"
+        "@vueuse/core": "^9.11.1",
+        "dayjs": "^1.11.7",
+        "vue-tailwind-datepicker": "^1.2.11"
     }
 }

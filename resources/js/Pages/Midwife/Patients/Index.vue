@@ -1,21 +1,22 @@
 <template>
-    <MidwifeLayout title="Patients">
+    <MidwifeLayout title="Patients x">
         <div>
             <div class="grid gap-4">
                 <div class="sm:flex sm:items-center">
                     <div class="sm:flex-auto">
-                        <TextInput type="text" placeholder="Search" />
+                        <TextInput v-model="search" type="text" placeholder="Search" />
                     </div>
                     <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
                         <PrimaryButtonLink :href="route('midwife.patients.create')">New Patient</PrimaryButtonLink>
                     </div>
                 </div>
-                <Table :headers="['Pregnancy', 'Full Name', 'Contact Number', 'Email', 'Age', 'Status', 'Actions']">
+                <Table :headers="['Details', 'Full Name', 'Contact Number', 'Email', 'Age', 'Status', 'Actions']">
                     <template v-for="patient in props.patients.data" :key="patient.id">
                         <tr>
                             <Tcell>
                                 <div class="flex space-x-2">
-                                    <SecondaryButtonLink :href="route('midwife.patients.schedules', { id: patient.id })">
+                                    <SecondaryButtonLink
+                                        :href="route('midwife.patients.schedules', { id: patient.id })">
                                         <CalendarDaysIcon class="h-5 mr-2" />
                                         <span>Schedules</span>
                                     </SecondaryButtonLink>
@@ -79,7 +80,8 @@ import Pagination from '@/Components/Pagination.vue';
 import { EyeIcon, PencilIcon, TrashIcon } from '@heroicons/vue/24/solid';
 import { Link, router } from '@inertiajs/vue3';
 import Confirm from '@/Components/Confirm.vue';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+import debounce from "lodash/debounce"
 import SecondaryButtonLink from '@/Components/SecondaryButtonLink.vue';
 import {
     ClockIcon,
@@ -89,6 +91,16 @@ import {
 
 let confirmDeletePatient = ref(false);
 let patienId = ref(null);
+let search = ref(props.filters.search);
+
+watch(search, debounce(function (value) {
+    router.get(route('midwife.patients'), {
+        search: value
+    }, {
+        preserveState: true,
+        preserveScroll: true
+    })
+}, 500))
 
 const resetDeleteData = () => {
     confirmDeletePatient.value = false
@@ -112,7 +124,8 @@ const confirmDelete = () => {
 
 
 let props = defineProps({
-    patients: Object
+    patients: Object,
+    filters: Object
 })
 
 </script>

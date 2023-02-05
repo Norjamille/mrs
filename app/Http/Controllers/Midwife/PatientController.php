@@ -2,20 +2,26 @@
 
 namespace App\Http\Controllers\Midwife;
 
+use App\Models\User;
+use Inertia\Inertia;
+use App\Models\Purok;
+use App\Models\Patient;
+use App\Services\PatientService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PatientRequest;
-use App\Models\Patient;
-use App\Models\Purok;
-use App\Models\User;
-use App\Services\PatientService;
-use Inertia\Inertia;
+use Illuminate\Support\Facades\Request;
 
 class PatientController extends Controller
 {
     public function index()
     {
+        $search = Request::input('search');
         return Inertia::render('Midwife/Patients/Index', [
             'patients' => Patient::query()
+                ->when($search!='',function($query)use($search){
+                    $query->where('last_name','like',"%{$search}%")
+                        ->orWhere('first_name','like',"%{$search}%");
+                })
                 ->paginate(10)
                 ->withQueryString()
                 ->through(fn ($patient) => [
@@ -26,6 +32,7 @@ class PatientController extends Controller
                     'age' => $patient->age,
                     'status' => $patient->active ? 'Active' : 'Inactive',
                 ]),
+            'filters'=>Request::only(['search'])
         ]);
     }
 
